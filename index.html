@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bookmarklets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="box">
+
+        <div class="head">
+            <h1>Bookmarklets</h1>
+            <h3>Made by: Landon</h3>
+        </div>
+
+        <h3>Usr.Script</h3>
+        <p>like a js console</p>
+        <textarea class="code" readonly>
+            javascript:(function()%7Bvar%20xhr%20%3D%20new%20XMLHttpRequest()%3Bxhr.open('GET'%2C%20'https%3A%2F%2Fraw.githubusercontent.com%2FTH3-PH0B14%2Fbookmarklet%2Fmain%2Fusrscript%2Fscript.js'%2C%20true)%3Bxhr.onreadystatechange%20%3D%20function()%20%7Bif%20(xhr.readyState%20%3D%3D%3D%204%20%26%26%20xhr.status%20%3D%3D%3D%20200)%20%7Bvar%20script%20%3D%20document.createElement('script')%3Bscript.innerHTML%20%3D%20xhr.responseText%3Bdocument.body.appendChild(script)%3B%7D%7D%3Bxhr.send()%3B%7D)()
+        </textarea>
+
+        <h3>website no history</h3>
+        <p>go to a website with no history</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var url = prompt('Enter the website URL:');
+                if (url) {
+                  var newWindow = window.open('about:blank', '_blank', 'width=800,height=600');
+                  var newDocument = newWindow.document;
+                  newDocument.open();
+                  newDocument.write('<html><body style="margin: 0; overflow: hidden;"><iframe src="' + url + '" style="border: none; width: 100%; height: 100%;"></iframe></body></html>');
+                  newDocument.close();
+                }
+              })();
+        </textarea>
+
+        <h3>spin 360</h3>
+        <p>spin page 360 forever</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var style = document.createElement('style');
+                style.innerHTML = `
+                  @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                  }
+                  html, body {
+                    animation: spin 5s infinite linear;
+                  }
+                `;
+                document.head.appendChild(style);
+              })();
+        </textarea>
+
+        <h3>history flooder</h3>
+        <p>flood history with current site</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var numInput = document.createElement('input');
+                numInput.type = 'number';
+                numInput.min = 1;
+                numInput.placeholder = 'Enter the number of times to flood';
+              
+                var floodButton = document.createElement('button');
+                floodButton.textContent = 'Flood';
+                floodButton.style.marginTop = '5px';
+              
+                var closeButton = document.createElement('button');
+                closeButton.textContent = 'Close';
+                closeButton.style.marginTop = '5px';
+              
+                var container = document.createElement('div');
+                container.style.position = 'fixed';
+                container.style.top = '50%';
+                container.style.left = '50%';
+                container.style.transform = 'translate(-50%, -50%)';
+                container.style.padding = '20px';
+                container.style.background = 'white';
+                container.style.border = '1px solid #ccc';
+                container.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                container.style.zIndex = '9999';
+              
+                container.appendChild(numInput);
+                container.appendChild(floodButton);
+                container.appendChild(closeButton);
+              
+                document.body.appendChild(container);
+              
+                function floodHistory() {
+                  var num = parseInt(numInput.value);
+                  if (isNaN(num) || num < 1) {
+                    alert('Invalid input. Please enter a positive number.');
+                    return;
+                  }
+              
+                  var x = window.location.href;
+                  var done = false;
+              
+                  for (var i = 1; i <= num; i++) {
+                    history.pushState(0, 0, i === num ? x : i.toString());
+                    if (i === num) {
+                      done = true;
+                    }
+                  }
+              
+                  if (done) {
+                    alert('Flooding Successful!\n' + window.location.href + '\nThis page is now in your history ' + num + (num === 1 ? ' time.' : ' times.'));
+                  }
+              
+                  document.body.removeChild(container);
+                }
+              
+                floodButton.addEventListener('click', floodHistory);
+                closeButton.addEventListener('click', function() {
+                  document.body.removeChild(container);
+                });
+              })();
+        </textarea>
+
+        <h3>replace all images</h3>
+        <p>replace all images on current site</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var newImageUrl = prompt('Enter the new image URL:');
+                if (newImageUrl) {
+                  var images = document.getElementsByTagName('img');
+                  for (var i = 0; i < images.length; i++) {
+                    images[i].src = newImageUrl;
+                  }
+                }
+              })();
+        </textarea>
+
+        <h3>fart onclick</h3>
+        <p>fart noise on mouse click</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var audio = new Audio('https://www.soundjay.com/human/fart-01.mp3');
+                document.addEventListener('click', function() {
+                  audio.play();
+                });
+              })();
+        </textarea>
+
+        <h3>fart on mouse move</h3>
+        <p>fart noise on mouse move</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var audio = new Audio('https://www.soundjay.com/human/fart-01.mp3');
+                document.addEventListener('mousemove', function() {
+                  audio.play();
+                });
+              })();
+        </textarea>
+
+        <h3>text to speech</h3>
+        <p>text to speech on highlighted text</p>
+        <textarea class="code" readonly>
+            javascript:(function() {  var selectedText = window.getSelection().toString();  if (selectedText !== '') {    var popup = window.open('', '_blank', 'width=400,height=300,resizable=no');    popup.document.write('<h2>Text-to-Speech Options</h2>');    popup.document.write('<label for="rate">Speech Rate:</label>');    popup.document.write('<input type="number" id="rate" min="0.1" max="10" step="0.1" value="1"><br>');    popup.document.write('<label for="pitch">Speech Pitch:</label>');    popup.document.write('<input type="number" id="pitch" min="0.1" max="2" step="0.1" value="1"><br>');    popup.document.write('<button id="play">Play</button>');    popup.document.write('<button id="pause">Pause</button>');        popup.document.getElementById('play').addEventListener('click', function() {      var rate = parseFloat(popup.document.getElementById('rate').value);      var pitch = parseFloat(popup.document.getElementById('pitch').value);            var speech = new SpeechSynthesisUtterance(selectedText);      speech.lang = 'en-US';      speech.rate = rate;      speech.pitch = pitch;      speechSynthesis.speak(speech);    });        popup.document.getElementById('pause').addEventListener('click', function() {      speechSynthesis.pause();    });  } else {    alert('No text is highlighted! \n Highlight text before using');  }})();
+        </textarea>
+
+        <h3>highlighter tool</h3>
+        <p>highlight text that you want highlighted</p>
+        <textarea class="code" readonly>
+            javascript:(function() {
+                var selection = window.getSelection();
+                if (selection.toString().length === 0) {
+                  alert("No text is currently highlighted.\n\nTo use this tool:\n1. Select the text you want to highlight.\n2. Click on the bookmarklet again.");
+                } else {
+                  var color = prompt("Enter a color (e.g., red, #FF0000):");
+                  if (color) {
+                    var range = selection.getRangeAt(0);
+                    var highlightedText = range.extractContents();
+                    var span = document.createElement("span");
+                    span.style.backgroundColor = color;
+                    span.appendChild(highlightedText);
+                    range.insertNode(span);
+                  }
+                }
+              })();
+        </textarea>
+
+        <h3>yohoho hackes</h3>
+        <p>yohoho hackes</p>
+        <br>
+        <p style="margin-top: 0;">lil code from: <a href="https://greasyfork.org/en/scripts/391387-yohoho-io-cheats/code">yohoho-io-cheats</a></p>
+        <textarea class="code" readonly>
+            javascript:(function() {  var menuDiv = document.createElement("div");  menuDiv.style.position = "fixed";  menuDiv.style.top = "50%";  menuDiv.style.left = "50%";  menuDiv.style.transform = "translate(-50%, -50%)";  menuDiv.style.padding = "20px";  menuDiv.style.backgroundColor = "#fff";  menuDiv.style.border = "1px solid #ccc";  menuDiv.style.zIndex = "9999";  var setCoinCountBtn = document.createElement("button");  setCoinCountBtn.innerHTML = "Set Coin Count";  setCoinCountBtn.addEventListener("click", function() {    var coinCount = prompt("What would you like to set your coin count to?");    if (coinCount && !isNaN(coinCount)) {      localStorage.setItem("coinsOwned", coinCount);      document.getElementById("homepage-booty").innerHTML = coinCount;      document.getElementById("skin-popup-booty").innerHTML = coinCount;      alert("Coins set! Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong. Please enter a valid number for the coin count.");    }  });  menuDiv.appendChild(setCoinCountBtn);  var setXPBtn = document.createElement("button");  setXPBtn.innerHTML = "Set XP";  setXPBtn.addEventListener("click", function() {    var xp = prompt("What would you like to set your XP to?");    if (xp && !isNaN(xp)) {      xp = Math.min(Math.max(parseInt(xp), 0), 13500);      localStorage.setItem("playerXP", xp);      alert("XP set! Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong. Please enter a valid number for the XP.");    }  });  menuDiv.appendChild(setXPBtn);  var setCharacterBtn = document.createElement("button");  setCharacterBtn.innerHTML = "Select Character";  setCharacterBtn.addEventListener("click", function() {    var character = prompt("Which character would you like to become? Please pick a number between 1 and 35!");    if (character && !isNaN(character)) {      character = Math.min(Math.max(parseInt(character), 1), 35);      localStorage.setItem("playerSkin", character);      alert("Character selected! Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong. Please enter a valid number for the character.");    }  });  menuDiv.appendChild(setCharacterBtn);  var setPetBtn = document.createElement("button");  setPetBtn.innerHTML = "Select Pet";  setPetBtn.addEventListener("click", function() {    var pet = prompt("Which pet would you like to become? Please pick a number between 1 and 7!");    if (pet && !isNaN(pet)) {      pet = Math.min(Math.max(parseInt(pet), 1), 7);      localStorage.setItem("playerPet", pet);      alert("Pet selected! Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong. Please enter a valid number for the pet.");    }  });  menuDiv.appendChild(setPetBtn);  var setPetLevelBtn = document.createElement("button");  setPetLevelBtn.innerHTML = "Select Pet Level";  setPetLevelBtn.addEventListener("click", function() {    var petLevel = prompt("What level would you like your pet to be? Please pick a number between 1 and 14!");    if (petLevel && !isNaN(petLevel)) {      petLevel = Math.min(Math.max(parseInt(petLevel), 1), 14);      localStorage.setItem("playerPetLevel", petLevel);      alert("Pet level selected! Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong. Please enter a valid number for the pet level.");    }  });  menuDiv.appendChild(setPetLevelBtn);  var setIslandBtn = document.createElement("button");  setIslandBtn.innerHTML = "Select Island";  setIslandBtn.addEventListener("click", function() {    var island = prompt("Which island would you like to travel to?\n1 = Tortuga\n2 = Beach\n3 = Easter\n4 = Wreck\n5 = Aztec\n6 = Volcano\n7 = Village");    if (island == "1") {      localStorage.setItem("playerXP", 0);      alert("Island set to Tortuga. Reloading...");      location.reload();    } else if (island == "2") {      localStorage.setItem("playerXP", 140);      alert("Island set to Beach. Reloading...");      location.reload();    } else if (island == "3") {      localStorage.setItem("playerXP", 700);      alert("Island set to Easter. Reloading...");      location.reload();    } else if (island == "4") {      localStorage.setItem("playerXP", 2100);      alert("Island set to Wreck. Reloading...");      location.reload();    } else if (island == "5") {      localStorage.setItem("playerXP", 4400);      alert("Island set to Aztec. Reloading...");      location.reload();    } else if (island == "6") {      localStorage.setItem("playerXP", 7600);      alert("Island set to Volcano. Reloading...");      location.reload();    } else if (island == "7") {      localStorage.setItem("playerXP", 13500);      alert("Island set to Village. Reloading...");      location.reload();    } else {      alert("Oops! Something went wrong! Please enter a number between 1 and 7!");      location.reload();    }  });  menuDiv.appendChild(setIslandBtn);  document.body.appendChild(menuDiv);})();
+        </textarea>
+    </div>
+
+    <script>
+        // Function to copy the text content of a textarea to clipboard
+        function copyToClipboard(text) {
+            // Create a temporary textarea element
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+    
+            // Append the textarea to the document
+            document.body.appendChild(textarea);
+    
+            // Select the text inside the textarea
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+    
+            // Copy the selected text to clipboard
+            document.execCommand('copy');
+    
+            // Remove the temporary textarea
+            document.body.removeChild(textarea);
+        }
+    
+        // Add click event listeners to all textarea elements with class "code"
+        const textareas = document.querySelectorAll('.code');
+        textareas.forEach(function(textarea) {
+            textarea.addEventListener('click', function() {
+                copyToClipboard(textarea.value);
+                textarea.select();
+                alert('Text has been copied!');
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
