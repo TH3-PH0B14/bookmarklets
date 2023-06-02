@@ -2,8 +2,15 @@
 
 This repository contains a collection of bookmarklets that I have created for various purposes. Bookmarklets are small JavaScript programs that can be saved as bookmarks in your web browser and used to enhance the functionality of websites.
 
-#how to
+## Table of Contents
 
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- ddede
+- 
 Make sure your bookmark bar is visible in the browser.
 
 Right-click on an empty space on the bookmark bar.
